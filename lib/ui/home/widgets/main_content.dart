@@ -15,13 +15,31 @@ class MainContent extends StatelessWidget {
       slivers: <Widget>[
         SliverAppBar(
           pinned: true,
+          expandedHeight: 150,
+          flexibleSpace: FlexibleSpaceBar(
+            centerTitle: true,
+            title: Text(
+              FlutterConfig.get('APP_NAME').toString().toUpperCase(),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black54),
+            ),
+          ),
+          centerTitle: true,
           leading: IconButton(
-            icon: Icon(FontAwesomeIcons.alignLeft),
+            icon: Icon(
+              FontAwesomeIcons.alignLeft,
+              color: Colors.black54,
+            ),
             onPressed: onMenuPressed,
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(FontAwesomeIcons.cog),
+              icon: Icon(
+                FontAwesomeIcons.cog,
+                color: Colors.black54,
+              ),
               onPressed: onSettingsPressed,
             )
           ],
@@ -54,20 +72,11 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverFillRemaining(
+      hasScrollBody: false,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
         child: Column(
           children: <Widget>[
-            Text(
-              FlutterConfig.get('APP_NAME').toString().toUpperCase(),
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black54),
-            ),
-            SizedBox(
-              height: 50,
-            ),
             Container(
               color: Colors.yellow,
               height: 300,
@@ -86,6 +95,9 @@ class Body extends StatelessWidget {
               margin: EdgeInsets.only(top: 20),
               height: 2,
               color: Colors.black26,
+            ),
+            Container(
+              height: 500,
             )
           ],
         ),
