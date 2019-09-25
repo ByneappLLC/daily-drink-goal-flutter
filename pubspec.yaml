@@ -26,6 +26,7 @@ dependencies:
   sqflite: ^1.1.6+5
   rxdart: ^0.22.2
   flutter_config: ^1.0.4
+  font_awesome_flutter: ^8.5.0
 
 dev_dependencies:
   flutter_test:
