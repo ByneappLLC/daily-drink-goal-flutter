@@ -1,0 +1,88 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+class MainContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      physics: BouncingScrollPhysics(),
+      slivers: <Widget>[
+        SliverAppBar(
+          pinned: true,
+          leading: IconButton(
+            icon: Icon(FontAwesomeIcons.alignLeft),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(FontAwesomeIcons.cog),
+            )
+          ],
+        ),
+        Body()
+      ],
+    );
+  }
+}
+
+class Body extends StatelessWidget {
+  _target(String text, String value) {
+    return Row(
+      children: <Widget>[
+        Text(
+          text,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        Text(
+          value,
+          style: TextStyle(color: Colors.black54),
+        )
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverFillRemaining(
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+        child: Column(
+          children: <Widget>[
+            Text(
+              FlutterConfig.get('APP_NAME').toString().toUpperCase(),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black54),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              color: Colors.yellow,
+              height: 300,
+            ),
+            SizedBox(
+              height: 70,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                _target('Current:', '16L'),
+                _target('Desired:', '20L')
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              height: 2,
+              color: Colors.black26,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
