@@ -3,6 +3,11 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MainContent extends StatelessWidget {
+  final Function onSettingsPressed;
+  final Function onMenuPressed;
+
+  const MainContent({Key key, this.onSettingsPressed, this.onMenuPressed})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -12,10 +17,12 @@ class MainContent extends StatelessWidget {
           pinned: true,
           leading: IconButton(
             icon: Icon(FontAwesomeIcons.alignLeft),
+            onPressed: onMenuPressed,
           ),
           actions: <Widget>[
             IconButton(
               icon: Icon(FontAwesomeIcons.cog),
+              onPressed: onSettingsPressed,
             )
           ],
         ),
