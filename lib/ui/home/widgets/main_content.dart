@@ -1,3 +1,4 @@
+import 'package:daily_beer_goal_fl/ui/home/widgets/week_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -78,7 +79,6 @@ class Body extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              color: Colors.yellow,
               height: 300,
             ),
             SizedBox(
@@ -96,9 +96,10 @@ class Body extends StatelessWidget {
               height: 2,
               color: Colors.black26,
             ),
-            Container(
-              height: 500,
-            )
+            SizedBox(
+              height: 50,
+            ),
+            WeekChart()
           ],
         ),
       ),

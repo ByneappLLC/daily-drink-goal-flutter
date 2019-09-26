@@ -17,9 +17,7 @@ class LinearPainter extends CustomPainter {
     _paintBackground.style = PaintingStyle.stroke;
     _paintBackground.strokeWidth = lineWidth;
 
-    _paintLine.color = progress.toString() == "0.0"
-        ? progressColor.withOpacity(0.0)
-        : progressColor;
+    _paintLine.color = progressColor;
     _paintLine.style = PaintingStyle.stroke;
     _paintLine.strokeWidth = lineWidth;
     _paintLine.strokeCap = StrokeCap.round;
@@ -28,11 +26,14 @@ class LinearPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final start = Offset(0.0, size.height / 2);
-    final end = Offset(size.width, size.height / 2);
-    canvas.drawLine(start, end, _paintBackground);
+    final start = Offset(0.0, size.height);
+
+    final progressOffset = Offset(0.0, size.height * (1 - progress));
+
     canvas.drawLine(
-        start, Offset(size.width * progress, size.height / 2), _paintLine);
+        Offset(0.0, 0.0), Offset(0.0, size.height), _paintBackground);
+
+    canvas.drawLine(start, progressOffset, _paintLine);
   }
 
   @override
