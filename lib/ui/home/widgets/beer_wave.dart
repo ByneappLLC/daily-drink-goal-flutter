@@ -239,9 +239,6 @@ class _RandomBubbleState extends State<RandomBubble> {
         ),
       );
 
-  double _nextMovementLower() =>
-      _random.nextInt(widget.waveHeight ~/ 2).toDouble();
-
   double _nextMovementUpper() =>
       (widget.waveHeight / 2) +
       _random

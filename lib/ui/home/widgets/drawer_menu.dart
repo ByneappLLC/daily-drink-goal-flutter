@@ -39,7 +39,7 @@ class DrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 130,
+      width: 135,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -47,11 +47,15 @@ class DrawerMenu extends StatelessWidget {
           SizedBox(
             height: 15,
           ),
-          _button(() {}, 'Leader', FontAwesomeIcons.trophy),
+          _button(() {}, 'Leaders', FontAwesomeIcons.trophy),
           SizedBox(
             height: 15,
           ),
-          _button(() {}, 'Help', FontAwesomeIcons.handsHelping),
+          _button(() {}, 'Contact', FontAwesomeIcons.mobileAlt),
+          SizedBox(
+            height: 15,
+          ),
+          _button(() {}, 'Get Help', FontAwesomeIcons.handsHelping),
         ],
       ),
     );
