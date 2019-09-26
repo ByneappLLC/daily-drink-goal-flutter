@@ -19,7 +19,7 @@ class MainContent extends StatelessWidget {
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: true,
             title: Text(
-              FlutterConfig.get('APP_NAME').toString().toUpperCase(),
+              FlutterConfig.get('APP_NAME').toUpperCase(),
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -71,7 +71,6 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Built');
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Container(

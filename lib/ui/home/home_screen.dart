@@ -1,7 +1,6 @@
 import 'package:daily_beer_goal_fl/ui/home/home_animator.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/drawer_menu.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/main_animated_content.dart';
-import 'package:daily_beer_goal_fl/ui/home/widgets/main_content.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -51,5 +50,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _animator.dispose();
   }
 }

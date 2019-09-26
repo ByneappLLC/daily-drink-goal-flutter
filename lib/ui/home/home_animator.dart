@@ -19,7 +19,6 @@ class HomeScreenAnimator {
   bool drawerIsOpen = false;
 
   Future openMenu() async {
-    print('open');
     try {
       await drawerController.forward().orCancel;
       drawerIsOpen = true;

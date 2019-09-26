@@ -1,4 +1,3 @@
-import 'package:daily_beer_goal_fl/ui/widgets/tiltable_stack.dart';
 import 'package:flutter/material.dart';
 
 import '../home_animator.dart';
@@ -14,8 +13,6 @@ class MainAnimatedContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('animt content built');
-
     final _mainContent = Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -47,7 +44,6 @@ class MainAnimatedContent extends StatelessWidget {
                   ),
                 )
             ],
-            alignment: FractionalOffset.centerLeft,
           )),
     );
   }
