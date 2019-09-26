@@ -38,9 +38,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             Positioned(
               bottom: 0,
               top: 0,
-              left: 30,
+              left: 0,
               child: DrawerMenu(
                 onPress: _animator.openMenu,
+                onDrinkPress: _animator.closeMenu,
               ),
             ),
             MainAnimatedContent(

@@ -3,13 +3,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DrawerMenu extends StatelessWidget {
   final Function onPress;
+  final Function onDrinkPress;
 
-  const DrawerMenu({Key key, this.onPress}) : super(key: key);
+  const DrawerMenu({Key key, this.onPress, this.onDrinkPress})
+      : super(key: key);
 
   Widget _button(Function onPressed, String title, IconData icon) => FlatButton(
-        color: Colors.yellow.shade200,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+        color: Colors.amberAccent.shade200,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(20),
+                bottomRight: Radius.circular(20))),
         onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -35,12 +39,19 @@ class DrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 130,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _button(() {}, "Drink", FontAwesomeIcons.accessibleIcon),
-          _button(() {}, 'Drink', Icons.account_balance_wallet),
-          _button(() {}, 'Get Help', Icons.child_friendly),
+          _button(onDrinkPress, "Drink", FontAwesomeIcons.glassCheers),
+          SizedBox(
+            height: 15,
+          ),
+          _button(() {}, 'Leader', FontAwesomeIcons.trophy),
+          SizedBox(
+            height: 15,
+          ),
+          _button(() {}, 'Help', FontAwesomeIcons.handsHelping),
         ],
       ),
     );

@@ -18,7 +18,7 @@ class BeerLevelProgress extends StatelessWidget {
                 shape: CircleBorder(),
                 child: BeerWave(
                   size: constraints.maxWidth * 2 / 3,
-                  progress: 0.56,
+                  progress: 0.76,
                   fillColor: Colors.amber.shade300,
                   frequency: 1,
                 ),
