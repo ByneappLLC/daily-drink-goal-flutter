@@ -1,5 +1,6 @@
 import 'package:daily_beer_goal_fl/ui/widgets/tiltable_container.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../home_animator.dart';
 import 'main_content.dart';
@@ -21,9 +22,17 @@ class MainAnimatedContent extends StatelessWidget {
           BoxShadow(blurRadius: 30, spreadRadius: 20, color: Colors.black12)
         ],
       ),
-      child: MainContent(
-        onMenuPressed: animator.openMenu,
-        onSettingsPressed: () {},
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: MainContent(
+          onMenuPressed: animator.openMenu,
+          onSettingsPressed: () {},
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: Colors.amber.shade300,
+          child: Icon(FontAwesomeIcons.glassCheers),
+        ),
       ),
     );
     return AnimatedBuilder(

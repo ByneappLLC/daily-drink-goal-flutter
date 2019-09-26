@@ -105,7 +105,10 @@ class Body extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
-            WeekChart()
+            WeekChart(),
+            SizedBox(
+              height: 50,
+            ),
           ],
         ),
       ),

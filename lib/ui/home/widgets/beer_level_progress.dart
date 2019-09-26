@@ -1,3 +1,4 @@
+import 'package:daily_beer_goal_fl/ui/home/widgets/beer_wave.dart';
 import 'package:daily_beer_goal_fl/ui/widgets/tiltable_stack.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,12 @@ class BeerLevelProgress extends StatelessWidget {
               child: Material(
                 elevation: 4,
                 shape: CircleBorder(),
-                child: Container(),
+                child: BeerWave(
+                  size: constraints.maxWidth * 2 / 3,
+                  progress: 0.56,
+                  fillColor: Colors.amber.shade300,
+                  frequency: 1,
+                ),
               ),
             ),
             Column(
