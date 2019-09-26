@@ -14,7 +14,6 @@ class BeerLevelProgress extends StatelessWidget {
               size: Size.square(constraints.maxWidth * 3 / 4 - 20),
               child: Material(
                 elevation: 4,
-                color: Colors.grey.shade100,
                 shape: CircleBorder(),
                 child: Container(),
               ),

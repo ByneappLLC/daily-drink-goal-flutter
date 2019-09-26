@@ -50,8 +50,8 @@ class _DayProgressState extends State<DayProgress>
                       return CustomPaint(
                         painter: LinearPainter(
                           progress: _animation.value,
-                          progressColor: Colors.yellow,
-                          backgroundColor: Colors.grey,
+                          progressColor: Colors.yellow.shade300,
+                          backgroundColor: Colors.grey.shade300,
                           lineWidth: 14,
                         ),
                       );

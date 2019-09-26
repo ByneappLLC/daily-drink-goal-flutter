@@ -78,8 +78,10 @@ class Body extends StatelessWidget {
       child: Container(
         child: Column(
           children: <Widget>[
+            SizedBox(
+              height: 30,
+            ),
             Container(
-              height: 300,
               child: BeerLevelProgress(),
             ),
             SizedBox(

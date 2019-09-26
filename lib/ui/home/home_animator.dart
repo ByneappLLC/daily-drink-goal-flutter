@@ -7,8 +7,8 @@ class HomeScreenAnimator {
 
     translateRight = Tween(begin: 0.0, end: 200.0).animate(CurvedAnimation(
         parent: drawerController,
-        curve: Curves.elasticOut,
-        reverseCurve: Curves.easeInOutQuad));
+        curve: Curves.easeOutCirc,
+        reverseCurve: Curves.easeInCirc));
     scaleDown = Tween(begin: 1.0, end: 0.8).animate(
         CurvedAnimation(parent: drawerController, curve: Curves.easeIn));
   }
