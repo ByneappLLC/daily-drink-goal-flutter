@@ -1,3 +1,4 @@
+import 'package:daily_beer_goal_fl/ui/widgets/tiltable_container.dart';
 import 'package:flutter/material.dart';
 
 import '../home_animator.dart';
@@ -29,22 +30,16 @@ class MainAnimatedContent extends StatelessWidget {
       animation: animator.drawerController,
       child: _mainContent,
       builder: (context, widget) => Transform(
-          alignment: Alignment.centerLeft,
-          transform:
-              Matrix4.translationValues(animator.translateRight.value, 0.0, 0.0)
-                ..scale(animator.scaleDown.value),
-          child: Stack(
-            children: <Widget>[
-              widget,
-              if (animator.drawerIsOpen)
-                GestureDetector(
-                  onTap: animator.closeMenu,
-                  child: Container(
-                    color: Colors.transparent,
-                  ),
-                )
-            ],
-          )),
+        alignment: Alignment.centerLeft,
+        transform:
+            Matrix4.translationValues(animator.translateRight.value, 0.0, 0.0)
+              ..scale(animator.scaleDown.value),
+        child: TiltableContainer(
+          child: widget,
+          disabled: !animator.drawerIsOpen,
+          onTap: animator.closeMenu,
+        ),
+      ),
     );
   }
 }

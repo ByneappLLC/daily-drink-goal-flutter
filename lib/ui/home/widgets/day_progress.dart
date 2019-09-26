@@ -13,15 +13,20 @@ class DayProgress extends StatefulWidget {
 class _DayProgressState extends State<DayProgress>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
+  Animation _animation;
 
   @override
   void initState() {
-    _controller = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 300),
-        lowerBound: 0.0,
-        upperBound: widget.progress);
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
+
+    _animation = Tween(begin: 0.0, end: widget.progress).animate(
+        CurvedAnimation(
+            parent: _controller,
+            curve: Curves.elasticOut,
+            reverseCurve: Curves.easeInOutQuad));
     _controller.forward();
+
     super.initState();
   }
 
@@ -30,7 +35,7 @@ class _DayProgressState extends State<DayProgress>
     return LayoutBuilder(builder: (context, constraints) {
       return GestureDetector(
         onTap: () {
-          _controller.reverse().then((_) => _controller.fling());
+          _controller.reverse().then((_) => _controller.forward());
         },
         child: Container(
           color: Colors.transparent,
@@ -40,11 +45,11 @@ class _DayProgressState extends State<DayProgress>
             children: <Widget>[
               Expanded(
                 child: AnimatedBuilder(
-                    animation: _controller,
+                    animation: _animation,
                     builder: (context, snapshot) {
                       return CustomPaint(
                         painter: LinearPainter(
-                          progress: _controller.value,
+                          progress: _animation.value,
                           progressColor: Colors.yellow,
                           backgroundColor: Colors.grey,
                           lineWidth: 14,

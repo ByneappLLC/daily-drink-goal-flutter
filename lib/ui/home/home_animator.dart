@@ -3,10 +3,12 @@ import 'package:flutter/widgets.dart';
 class HomeScreenAnimator {
   HomeScreenAnimator(this.vsync) {
     drawerController = AnimationController(
-        vsync: vsync, duration: const Duration(milliseconds: 200));
+        vsync: vsync, duration: const Duration(milliseconds: 300));
 
-    translateRight = Tween(begin: 0.0, end: 200.0).animate(
-        CurvedAnimation(parent: drawerController, curve: Curves.easeInCubic));
+    translateRight = Tween(begin: 0.0, end: 200.0).animate(CurvedAnimation(
+        parent: drawerController,
+        curve: Curves.elasticOut,
+        reverseCurve: Curves.easeInOutQuad));
     scaleDown = Tween(begin: 1.0, end: 0.8).animate(
         CurvedAnimation(parent: drawerController, curve: Curves.easeIn));
   }
