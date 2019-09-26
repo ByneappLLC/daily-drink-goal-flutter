@@ -1,3 +1,4 @@
+import 'package:daily_beer_goal_fl/ui/home/widgets/beer_level_progress.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/week_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -75,24 +76,27 @@ class Body extends StatelessWidget {
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
         child: Column(
           children: <Widget>[
             Container(
               height: 300,
+              child: BeerLevelProgress(),
             ),
             SizedBox(
               height: 70,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                _target('Current:', '16L'),
-                _target('Desired:', '20L')
-              ],
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  _target('Current:', '16L'),
+                  _target('Desired:', '20L')
+                ],
+              ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: EdgeInsets.only(top: 20, left: 20, right: 20),
               height: 2,
               color: Colors.black26,
             ),

@@ -5,8 +5,8 @@ class WeekChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      height: 200,
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      height: 250,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
