@@ -4,6 +4,10 @@ import 'package:daily_beer_goal_fl/ui/home/widgets/main_content.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const routeName = '/';
+
+  static PageRoute newInstance() =>
+      MaterialPageRoute(builder: (context) => HomeScreen());
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
