@@ -71,6 +71,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Built');
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Container(
