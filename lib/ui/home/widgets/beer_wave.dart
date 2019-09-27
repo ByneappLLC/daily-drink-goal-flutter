@@ -207,15 +207,16 @@ class RandomBubble extends StatefulWidget {
 class _RandomBubbleState extends State<RandomBubble> {
   final _random = Random();
 
-  int _next(int max) => _random.nextInt(max);
-
   int _nextType() => _random.nextInt(3);
 
-  double _nextWidth() => 4 + _random.nextInt(10 - 4).toDouble();
+  double _randomSize() => 4 + _random.nextInt(10 - 4).toDouble();
 
-  double _nextHeight() => 4 + _random.nextInt(10 - 4).toDouble();
+  double _randomAnimatedValue() => _random.nextDouble();
 
-  double _nextAnimatedValue() => _random.nextDouble();
+  double _randomHorizontalPosition() =>
+      _random.nextInt(widget.waveWidth.toInt()).toDouble();
+  double _randomVerticalPosition() =>
+      _random.nextInt(widget.waveHeight.toInt()).toDouble();
 
   double _posBottom;
   double _posLeft;
@@ -225,13 +226,10 @@ class _RandomBubbleState extends State<RandomBubble> {
 
   _buildStaticVanishingBubble() => ScaleTransition(
         alignment: Alignment.center,
-        scale: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.controller,
-            curve: Interval(_nextAnimatedValue(), 1.0,
-                curve: Curves.fastOutSlowIn))),
+        scale: _anim,
         child: Container(
-          width: _nextWidth(),
-          height: _nextHeight(),
+          width: _randomSize(),
+          height: _randomSize(),
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.4),
             shape: BoxShape.circle,
@@ -265,8 +263,8 @@ class _RandomBubbleState extends State<RandomBubble> {
   @override
   void initState() {
     super.initState();
-    _posBottom = _next(widget.waveHeight.toInt()).toDouble();
-    _posLeft = _next(widget.waveWidth.toInt()).toDouble();
+    _posBottom = _randomVerticalPosition();
+    _posLeft = _randomHorizontalPosition();
     _isPositioned = _nextType() == RandomBubble.POSITIONED;
     if (!_isPositioned) {
       _anim = Tween(begin: _nextMovementUpper(), end: -widget.waveHeight)
@@ -274,17 +272,30 @@ class _RandomBubbleState extends State<RandomBubble> {
         parent: widget.controller,
         curve: Curves.linear,
       ));
+    } else {
+      _anim = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+          parent: widget.controller,
+          curve: Interval(_randomAnimatedValue(), 1.0,
+              curve: Curves.fastOutSlowIn)));
     }
     if (_isPositioned) {
       _bubble = _buildStaticVanishingBubble();
+      _anim.addStatusListener((AnimationStatus status) {
+        if (status == AnimationStatus.forward) {
+          setState(() {
+            _posBottom = _randomVerticalPosition();
+            _posLeft = _randomHorizontalPosition();
+          });
+        }
+      });
     } else {
-      _bubble = _buildMovingBubble(_anim, _nextWidth());
+      _bubble = _buildMovingBubble(_anim, _randomSize());
 
       _anim.addStatusListener((AnimationStatus status) {
         if (status == AnimationStatus.reverse) {
           setState(() {
-            _posBottom = _next(widget.waveHeight.toInt()).toDouble();
-            _posLeft = _next(widget.waveWidth.toInt()).toDouble();
+            _posBottom = _randomVerticalPosition();
+            _posLeft = _randomHorizontalPosition();
           });
         }
       });
