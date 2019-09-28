@@ -1,3 +1,4 @@
+import 'package:daily_beer_goal_fl/ui/add_drink/add_drink_screen.dart';
 import 'package:daily_beer_goal_fl/ui/widgets/tiltable_container.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,7 +30,9 @@ class MainAnimatedContent extends StatelessWidget {
           onSettingsPressed: () {},
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          heroTag: 'fab-to-add',
+          onPressed: () =>
+              Navigator.pushNamed(context, AddDrinkScreen.routeName),
           backgroundColor: Colors.amber.shade300,
           child: Icon(FontAwesomeIcons.glassCheers),
         ),

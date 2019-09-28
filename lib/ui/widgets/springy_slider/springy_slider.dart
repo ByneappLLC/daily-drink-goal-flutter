@@ -7,6 +7,7 @@
  */
 
 import 'package:daily_beer_goal_fl/ui/widgets/springy_slider/slider_controller.dart';
+import 'package:daily_beer_goal_fl/ui/widgets/springy_slider/slider_debug.dart';
 import 'package:daily_beer_goal_fl/ui/widgets/springy_slider/slider_dragger.dart';
 import 'package:daily_beer_goal_fl/ui/widgets/springy_slider/slider_goo.dart';
 import 'package:daily_beer_goal_fl/ui/widgets/springy_slider/slider_marks.dart';
@@ -19,12 +20,17 @@ class SpringySlider extends StatefulWidget {
   final int markCount;
   final Color positiveColor;
   final Color negativeColor;
+  final int drinkingGoal;
+  final double percentDrank;
+  final Function(int) onSpringStopped;
 
-  SpringySlider({
-    this.markCount,
-    this.positiveColor,
-    this.negativeColor,
-  });
+  SpringySlider(
+      {this.markCount,
+      this.positiveColor,
+      this.negativeColor,
+      this.percentDrank,
+      this.onSpringStopped,
+      this.drinkingGoal});
 
   @override
   _SpringySliderState createState() => new _SpringySliderState();
@@ -40,20 +46,27 @@ class _SpringySliderState extends State<SpringySlider>
   @override
   void initState() {
     super.initState();
-    sliderController = new SpringySliderController(
-      sliderPercent: 0.5,
+    sliderController = SpringySliderController(
+      sliderPercent: widget.percentDrank,
       vsync: this,
     )..addListener(() {
         setState(() {});
+        if (sliderController.state == SpringySliderState.idle) {
+          if (widget.onSpringStopped != null) {
+            final current = sliderController.sliderValue * widget.drinkingGoal;
+
+            widget.onSpringStopped(current.round());
+          }
+        }
       });
   }
 
   @override
   Widget build(BuildContext context) {
-    double sliderPercent = sliderController.sliderValue;
-    if (sliderController.state == SpringySliderState.springing) {
-      sliderPercent = sliderController.springingPercent;
-    }
+    // double sliderPercent = sliderController.sliderValue;
+    // if (sliderController.state == SpringySliderState.springing) {
+    //   sliderPercent = sliderController.springingPercent;
+    // }
 
     return SliderDragger(
       sliderController: sliderController,
@@ -84,16 +97,24 @@ class _SpringySliderState extends State<SpringySlider>
             sliderController: sliderController,
             paddingTop: paddingTop,
             paddingBottom: paddingBottom,
+            color: widget.positiveColor,
+            goal: widget.drinkingGoal,
           ),
-//          new SliderDebug(
-//            sliderPercent: sliderController.state == SpringySliderState.dragging
-//                ? sliderController.draggingPercent
-//                : sliderPercent,
-//            paddingTop: paddingTop,
-//            paddingBottom: paddingBottom,
-//          ),
+          // SliderDebug(
+          //   sliderPercent: sliderController.state == SpringySliderState.dragging
+          //       ? sliderController.draggingPercent
+          //       : sliderPercent,
+          //   paddingTop: paddingTop,
+          //   paddingBottom: paddingBottom,
+          // ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    sliderController.dispose();
+    super.dispose();
   }
 }

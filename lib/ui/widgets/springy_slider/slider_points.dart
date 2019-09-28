@@ -14,12 +14,15 @@ class SliderPoints extends StatelessWidget {
   final SpringySliderController sliderController;
   final double paddingTop;
   final double paddingBottom;
+  final Color color;
+  final int goal;
 
-  SliderPoints({
-    this.sliderController,
-    this.paddingTop,
-    this.paddingBottom,
-  });
+  SliderPoints(
+      {this.sliderController,
+      this.paddingTop,
+      this.paddingBottom,
+      this.color,
+      this.goal});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +36,9 @@ class SliderPoints extends StatelessWidget {
         final height = constraints.maxHeight - paddingTop - paddingBottom;
         final sliderY = height * (1.0 - sliderPercent) + paddingTop;
         final pointsYouNeedPercent = 1.0 - sliderPercent;
-        final pointsYouNeed = (100 * pointsYouNeedPercent).round();
+        final pointsYouNeed = (goal * pointsYouNeedPercent).round();
         final pointsYouHavePercent = sliderPercent;
-        final pointsYouHave = 100 - pointsYouNeed;
+        final pointsYouHave = goal - pointsYouNeed;
 
         return Stack(
           children: <Widget>[
@@ -44,18 +47,20 @@ class SliderPoints extends StatelessWidget {
               top: sliderY - 10.0 - (40.0 * pointsYouNeedPercent),
               child: FractionalTranslation(
                 translation: Offset(0.0, -1.0),
-                child: new Points(
+                child: Points(
+                  goal: goal,
                   points: pointsYouNeed,
                   isAboveSlider: true,
                   isPointsYouNeed: true,
-                  color: Colors.pink,
+                  color: color,
                 ),
               ),
             ),
             Positioned(
               left: 30.0,
               top: sliderY + 10.0 + (40.0 * pointsYouHavePercent),
-              child: new Points(
+              child: Points(
+                goal: goal,
                 points: pointsYouHave,
                 isAboveSlider: false,
                 isPointsYouNeed: false,
@@ -74,17 +79,18 @@ class Points extends StatelessWidget {
   final bool isAboveSlider;
   final bool isPointsYouNeed;
   final Color color;
+  final int goal;
 
-  Points({
-    this.points,
-    this.isAboveSlider = true,
-    this.isPointsYouNeed = true,
-    this.color,
-  });
+  Points(
+      {this.points,
+      this.isAboveSlider = true,
+      this.isPointsYouNeed = true,
+      this.color,
+      this.goal});
 
   @override
   Widget build(BuildContext context) {
-    final percent = points / 100.0;
+    final percent = points / goal;
     final pointTextSize = 50.0 + (50.0 * percent);
 
     return Row(
@@ -110,7 +116,7 @@ class Points extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: 4.0),
                 child: Text(
-                  'POINTS',
+                  'ml',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: color,
@@ -118,7 +124,7 @@ class Points extends StatelessWidget {
                 ),
               ),
               Text(
-                isPointsYouNeed ? 'YOU NEED' : 'YOU HAVE',
+                isPointsYouNeed ? 'NEEDED' : 'DRANK',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: color,
