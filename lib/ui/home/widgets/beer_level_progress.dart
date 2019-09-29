@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 class BeerLevelProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
+    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
+    print(isPortrait);
+    final layout = LayoutBuilder(
       builder: (context, constraints) {
         return TiltableStack(
           alignment: Alignment.center,
@@ -47,5 +50,26 @@ class BeerLevelProgress extends StatelessWidget {
         );
       },
     );
+
+    if (isPortrait) {
+      return layout;
+    } else {
+      return Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: layout,
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Center(
+                child: Text('A Beer A Day Keeps the Doctors away'),
+              ),
+            ),
+          )
+        ],
+      );
+    }
   }
 }

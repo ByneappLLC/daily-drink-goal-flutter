@@ -27,7 +27,7 @@ class MainAnimatedContent extends StatelessWidget {
         backgroundColor: Colors.transparent,
         body: MainContent(
           onMenuPressed: animator.openMenu,
-          onSettingsPressed: () {},
+          onSettingsPressed: animator.openSettings,
         ),
         floatingActionButton: FloatingActionButton(
           heroTag: 'fab-to-add',

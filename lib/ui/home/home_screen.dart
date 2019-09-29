@@ -1,4 +1,5 @@
 import 'package:daily_beer_goal_fl/ui/home/home_animator.dart';
+import 'package:daily_beer_goal_fl/ui/home/settings/settings_card.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/drawer_menu.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/main_animated_content.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           if (_animator.drawerIsOpen) {
             _animator.closeMenu();
             return false;
+          } else if (_animator.settingsIsOpen) {
+            _animator.closeSettings();
+            return false;
           } else {
             return true;
           }
@@ -47,6 +51,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             MainAnimatedContent(
               animator: _animator,
             ),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: SettingsCard(
+                animator: _animator,
+              ),
+            )
           ],
         ),
       ),
