@@ -50,7 +50,7 @@ class SettingsCard extends StatelessWidget {
               height: size.height,
               child: Container(
                 margin: EdgeInsets.only(
-                    left: size.width * 0.5, bottom: size.height * 0.5),
+                    left: size.width * 0.5, bottom: size.height * 0.5, top: 90),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -73,8 +73,12 @@ class SettingsCard extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          _settingsSelection(
-                              'Account', () {}, FontAwesomeIcons.userAlt),
+                          Banner(
+                            location: BannerLocation.topStart,
+                            message: 'Comming Soon',
+                            child: _settingsSelection(
+                                'Account', () {}, FontAwesomeIcons.userAlt),
+                          ),
                           _settingsSelection(
                               'Set Goal', () {}, FontAwesomeIcons.trophy)
                         ],

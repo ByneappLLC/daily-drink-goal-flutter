@@ -47,7 +47,11 @@ class DrawerMenu extends StatelessWidget {
           SizedBox(
             height: 15,
           ),
-          _button(() {}, 'Leaders', FontAwesomeIcons.trophy),
+          Banner(
+            message: 'Comming Soon',
+            location: BannerLocation.topEnd,
+            child: _button(() {}, 'Leaders', FontAwesomeIcons.trophy),
+          ),
           SizedBox(
             height: 15,
           ),

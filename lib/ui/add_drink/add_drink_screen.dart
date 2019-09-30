@@ -1,5 +1,9 @@
+import 'dart:math';
+
+import 'package:daily_beer_goal_fl/ui/add_drink/add_screen_animator.dart';
+import 'package:daily_beer_goal_fl/ui/add_drink/beer_slider.dart';
+import 'package:daily_beer_goal_fl/ui/add_drink/flip_animator.dart';
 import 'package:daily_beer_goal_fl/ui/widgets/fade_route.dart';
-import 'package:daily_beer_goal_fl/ui/widgets/springy_slider/springy_slider.dart';
 import 'package:flutter/material.dart';
 
 class AddDrinkScreen extends StatefulWidget {
@@ -11,63 +15,81 @@ class AddDrinkScreen extends StatefulWidget {
   _AddDrinkScreenState createState() => _AddDrinkScreenState();
 }
 
-class _AddDrinkScreenState extends State<AddDrinkScreen> {
+class _AddDrinkScreenState extends State<AddDrinkScreen>
+    with TickerProviderStateMixin {
+  FlipAnimator _animator;
+
+  @override
+  void initState() {
+    _animator = FlipAnimator(this);
+    super.initState();
+  }
+
+  Matrix4 _pMatrix(num pValue) => Matrix4(
+        1.0, 0.0, 0.0, 0.0, //
+        0.0, 1.0, 0.0, 0.0, //
+        0.0, 0.0, 1.0, pValue * 0.001, //
+        0.0, 0.0, 1.0, 1.0,
+      );
+
   @override
   Widget build(BuildContext context) {
+    final sideA = Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+      ),
+      child: GestureDetector(
+        onTap: _animator.flip,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            child: Center(
+              child: Text('Page 1'),
+            ),
+          ),
+        ),
+      ),
+    );
+    final sideB = Transform(
+      transform: Matrix4.identity()..rotateY(pi),
+      alignment: FractionalOffset.center,
+      child: BeerSlider(
+        onSavePressed: _animator.flip,
+      ),
+    );
+    final stack = Stack(
+      children: <Widget>[
+        AnimatedBuilder(
+          animation: _animator.flipA,
+          child: sideA,
+          builder: (context, widget) {
+            return Transform(
+              transform: _pMatrix(1.0)..rotateY(_animator.flipA.value),
+              child: widget,
+              alignment: FractionalOffset.center,
+            );
+          },
+        ),
+        AnimatedBuilder(
+          animation: _animator.flipB,
+          child: sideB,
+          builder: (context, widget) {
+            return Transform(
+              transform: _pMatrix(1.0)..rotateY(_animator.flipB.value),
+              child: widget,
+              alignment: FractionalOffset.center,
+            );
+          },
+        ),
+      ],
+    );
     return Hero(
       tag: 'fab-to-add',
-      child: LayoutBuilder(builder: (context, constraints) {
-        return Container(
-          margin: EdgeInsets.symmetric(vertical: 50, horizontal: 50),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-          child: Material(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              clipBehavior: Clip.hardEdge,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      'GO GO GO!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: SpringySlider(
-                        drinkingGoal: 1500,
-                        percentDrank: 0.22,
-                        markCount: 20,
-                        onSpringStopped: (level) {
-                          print('Current level: $level');
-                        },
-                        positiveColor: Colors.amber.shade400,
-                        negativeColor: Colors.white),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Text(
-                        'SAVE',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ],
-              )),
-        );
-      }),
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 50, horizontal: 50),
+        child: stack,
+      ),
     );
   }
 }
