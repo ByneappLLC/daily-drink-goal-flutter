@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 const BEERS = 'beers';
+const GOAL = 'goal';
 
 class BeersDb {
   static Future<void> openDb() async {
@@ -17,6 +18,9 @@ class BeersDb {
 
   static Future<void> closeDb() => Hive.close();
 
-  static Future<Box> getBeersBox() => Hive.openBox(BEERS, lazy: true);
+  static Future<Box> getBeersBox() => Hive.openBox(BEERS);
   static Future<void> closeBeersBox() => Hive.box(BEERS).close();
+
+  static Future<Box> getGoalBox() => Hive.openBox(GOAL);
+  static Future<void> closeGoalBox() => Hive.box(GOAL).close();
 }

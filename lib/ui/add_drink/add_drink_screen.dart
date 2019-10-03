@@ -40,8 +40,7 @@ class _AddDrinkScreenState extends State<AddDrinkScreen>
     final sideA = DrinkSelection(
       onMoreSelected: _animator.flip,
       onAmountSelected: (amount) {
-        Navigator.pop(
-            context, Drink(_amountSelected, null, DateTime.now(), false));
+        Navigator.pop(context, Drink(amount, null, DateTime.now(), false));
       },
     );
     final sideB = Transform(

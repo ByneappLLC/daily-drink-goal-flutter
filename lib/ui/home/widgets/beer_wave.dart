@@ -12,10 +12,10 @@ class BeerWave extends StatefulWidget {
       {Key key, this.size, this.fillColor, this.progress, this.frequency})
       : super(key: key);
   @override
-  _BeerWaveState createState() => _BeerWaveState();
+  BeerWaveState createState() => BeerWaveState();
 }
 
-class _BeerWaveState extends State<BeerWave> with TickerProviderStateMixin {
+class BeerWaveState extends State<BeerWave> with TickerProviderStateMixin {
   AnimationController waveController;
   AnimationController bubbleController;
   AnimationController heightController;

@@ -39,7 +39,7 @@ class MainAnimatedContent extends StatelessWidget {
             _beerBloc.addDrink(v);
           }),
           backgroundColor: Colors.amber.shade300,
-          child: Icon(FontAwesomeIcons.glassCheers),
+          child: Icon(FontAwesomeIcons.plus),
         ),
       ),
     );

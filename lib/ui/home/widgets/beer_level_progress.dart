@@ -1,13 +1,31 @@
+import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
+import 'package:daily_beer_goal_fl/bloc/beers/beers_bloc.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/beer_wave.dart';
 import 'package:daily_beer_goal_fl/ui/widgets/tiltable_stack.dart';
 import 'package:flutter/material.dart';
 
-class BeerLevelProgress extends StatelessWidget {
+class BeerLevelProgress extends StatefulWidget {
+  @override
+  _BeerLevelProgressState createState() => _BeerLevelProgressState();
+}
+
+class _BeerLevelProgressState extends State<BeerLevelProgress> {
+  GlobalKey<BeerWaveState> waveKey = GlobalKey();
+  BeersBloc _bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _bloc = BlocProvider.of<BeersBloc>(context);
+    _bloc.streams.drinkingProgress.listen((p) {
+      waveKey.currentState?.update(p);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
 
-    print(isPortrait);
     final layout = LayoutBuilder(
       builder: (context, constraints) {
         return TiltableStack(
@@ -20,8 +38,9 @@ class BeerLevelProgress extends StatelessWidget {
                 elevation: 4,
                 shape: CircleBorder(),
                 child: BeerWave(
+                  key: waveKey,
                   size: constraints.maxWidth * 2 / 3,
-                  progress: 0.76,
+                  progress: 0.01,
                   fillColor: Colors.amber.shade300,
                   frequency: 1,
                 ),
