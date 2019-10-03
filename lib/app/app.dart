@@ -10,7 +10,7 @@ class App extends StatelessWidget {
       title: FlutterConfig.get('APP_NAME'),
       theme: ThemeData(
           primaryColor: Colors.white, colorScheme: ColorScheme.light()),
-      home: HomeScreen(),
+      home: HomeScreen.newInstance(),
       onGenerateRoute: Router.generateRoute,
     );
   }

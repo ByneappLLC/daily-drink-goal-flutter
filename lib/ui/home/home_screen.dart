@@ -1,14 +1,28 @@
+import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
+import 'package:daily_beer_goal_fl/bloc/beers/beers_bloc.dart';
 import 'package:daily_beer_goal_fl/ui/home/home_animator.dart';
 import 'package:daily_beer_goal_fl/ui/home/settings/settings_card.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/drawer_menu.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/main_animated_content.dart';
 import 'package:flutter/material.dart';
+import 'package:kiwi/kiwi.dart' as kiwi;
+
+final _container = kiwi.Container();
+
+BeersBloc _blocInstance;
 
 class HomeScreen extends StatefulWidget {
-  static const routeName = '/';
+  static Widget newInstance() {
+    if (_blocInstance == null) {
+      _blocInstance = _container<BeersBloc>();
+    }
 
-  static PageRoute newInstance() =>
-      MaterialPageRoute(builder: (context) => HomeScreen());
+    return BlocProvider(
+      bloc: _blocInstance,
+      child: HomeScreen(),
+    );
+  }
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -68,5 +82,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void dispose() {
     super.dispose();
     _animator.dispose();
+    _blocInstance = null;
   }
 }

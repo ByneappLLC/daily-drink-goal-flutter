@@ -1,3 +1,5 @@
+import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
+import 'package:daily_beer_goal_fl/bloc/beers/beers_bloc.dart';
 import 'package:daily_beer_goal_fl/ui/add_drink/add_drink_screen.dart';
 import 'package:daily_beer_goal_fl/ui/widgets/tiltable_container.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ class MainAnimatedContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _beerBloc = BlocProvider.of<BeersBloc>(context);
     final _mainContent = Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -32,7 +35,9 @@ class MainAnimatedContent extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           heroTag: 'fab-to-add',
           onPressed: () =>
-              Navigator.pushNamed(context, AddDrinkScreen.routeName),
+              Navigator.pushNamed(context, AddDrinkScreen.routeName).then((v) {
+            _beerBloc.addDrink(v);
+          }),
           backgroundColor: Colors.amber.shade300,
           child: Icon(FontAwesomeIcons.glassCheers),
         ),
