@@ -17,18 +17,21 @@ class DrinkAdapter extends TypeAdapter<Drink> {
       fields[0] as int,
       fields[1] as BeerType,
       fields[2] as DateTime,
+      fields[3] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Drink obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.amount)
       ..writeByte(1)
       ..write(obj.type)
       ..writeByte(2)
-      ..write(obj.date);
+      ..write(obj.date)
+      ..writeByte(3)
+      ..write(obj.synced);
   }
 }

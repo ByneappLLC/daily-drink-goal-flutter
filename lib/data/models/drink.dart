@@ -14,5 +14,8 @@ class Drink {
   @HiveField(2)
   final DateTime date;
 
-  Drink(this.amount, this.type, this.date);
+  @HiveField(3)
+  final bool synced;
+
+  Drink(this.amount, this.type, this.date, this.synced);
 }
