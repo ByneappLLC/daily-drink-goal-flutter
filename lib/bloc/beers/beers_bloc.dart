@@ -19,7 +19,7 @@ class BeersBloc extends BaseBloc {
   _init() async {
     _beersBox = await BeersDb.getBeersBox();
     _goalBox = await BeersDb.getGoalBox();
-    final goal = _goalBox.get('myGoal', defaultValue: 1000) as int;
+    final goal = _goalBox.get('myGoal', defaultValue: 5000) as int;
 
     streams.setGoal(goal);
     _getTodaysDrinks();
@@ -54,7 +54,6 @@ class BeersBloc extends BaseBloc {
   _getWeeklyDrinks() {
     _beersBox.values.where((d) {
       final month = (d as Drink).date.month;
-      final day = (d as Drink).date.day;
 
       return month == _today.month;
     });
@@ -67,6 +66,10 @@ class BeersBloc extends BaseBloc {
       print(drink.amount);
       _beersBox.add(drink);
     }
+  }
+
+  deleteAll() {
+    print('Delete ass');
   }
 
   @override

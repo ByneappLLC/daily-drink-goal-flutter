@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+const _NUMBER_OF_BUBBLES = 15;
+
 class BeerWave extends StatefulWidget {
   final double size;
   final Color fillColor;
@@ -21,10 +23,18 @@ class BeerWaveState extends State<BeerWave> with TickerProviderStateMixin {
   AnimationController heightController;
   Animation heightAnimation;
   Tween<double> heightTween;
+  List<GlobalKey<RandomBubbleState>> _bubbleKeys;
 
   @override
   void initState() {
     super.initState();
+
+    _bubbleKeys = List(_NUMBER_OF_BUBBLES)
+        .asMap()
+        .map((index, _) => MapEntry(
+            index, GlobalKey<RandomBubbleState>(debugLabel: '_bubble_$index')))
+        .values
+        .toList();
     waveController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 2500),
@@ -73,19 +83,32 @@ class BeerWaveState extends State<BeerWave> with TickerProviderStateMixin {
         begin: heightTween.evaluate(heightController),
         end: progress,
       );
+
+      _bubbleKeys.forEach((b) {
+        b.currentState.updateBubbles(widget.size * progress);
+      });
+
       heightController.forward(from: 0.0);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final bubbles = List(20).map((_) {
-      return RandomBubble(
-        controller: bubbleController,
-        waveHeight: widget.size * widget.progress,
-        waveWidth: widget.size,
-      );
-    }).toList();
+    final _bubbles = List(_NUMBER_OF_BUBBLES)
+        .asMap()
+        .map((index, _) {
+          final bubble = RandomBubble(
+            key: _bubbleKeys[index],
+            controller: bubbleController,
+            waveHeight: widget.size * widget.progress,
+            waveWidth: widget.size,
+          );
+
+          return MapEntry(index, bubble);
+        })
+        .values
+        .toList();
+
     final _beerWave = Positioned(
       top: 0,
       left: 0,
@@ -107,7 +130,7 @@ class BeerWaveState extends State<BeerWave> with TickerProviderStateMixin {
       child: ClipPath(
         clipper: CircleClipper(),
         child: Stack(
-          children: <Widget>[_beerWave, ...bubbles],
+          children: <Widget>[_beerWave, ..._bubbles],
         ),
       ),
     );
@@ -201,10 +224,10 @@ class RandomBubble extends StatefulWidget {
       : super(key: key);
 
   @override
-  _RandomBubbleState createState() => _RandomBubbleState();
+  RandomBubbleState createState() => RandomBubbleState();
 }
 
-class _RandomBubbleState extends State<RandomBubble> {
+class RandomBubbleState extends State<RandomBubble> {
   final _random = Random();
 
   int _nextType() => _random.nextInt(3);
@@ -215,8 +238,8 @@ class _RandomBubbleState extends State<RandomBubble> {
 
   double _randomHorizontalPosition() =>
       _random.nextInt(widget.waveWidth.toInt()).toDouble();
-  double _randomVerticalPosition() =>
-      _random.nextInt(widget.waveHeight.toInt()).toDouble();
+  double _randomVerticalPosition(double height) =>
+      _random.nextInt(height.toInt()).toDouble();
 
   double _posBottom;
   double _posLeft;
@@ -237,11 +260,9 @@ class _RandomBubbleState extends State<RandomBubble> {
         ),
       );
 
-  double _nextMovementUpper() =>
-      (widget.waveHeight / 2) +
-      _random
-          .nextInt((widget.waveHeight - (widget.waveHeight / 2)).toInt())
-          .toDouble();
+  double _nextMovementUpper(double height) =>
+      (height / 2) +
+      _random.nextInt((height - (height / 2)).toInt()).toDouble();
 
   _buildMovingBubble(Animation animation, double size) => AnimatedBuilder(
       animation: animation,
@@ -260,14 +281,12 @@ class _RandomBubbleState extends State<RandomBubble> {
         );
       });
 
-  @override
-  void initState() {
-    super.initState();
-    _posBottom = _randomVerticalPosition();
+  _init(double height) {
+    _posBottom = _randomVerticalPosition(height);
     _posLeft = _randomHorizontalPosition();
     _isPositioned = _nextType() == RandomBubble.POSITIONED;
     if (!_isPositioned) {
-      _anim = Tween(begin: _nextMovementUpper(), end: -widget.waveHeight)
+      _anim = Tween(begin: _nextMovementUpper(height), end: -height)
           .animate(CurvedAnimation(
         parent: widget.controller,
         curve: Curves.linear,
@@ -283,7 +302,7 @@ class _RandomBubbleState extends State<RandomBubble> {
       _anim.addStatusListener((AnimationStatus status) {
         if (status == AnimationStatus.forward) {
           setState(() {
-            _posBottom = _randomVerticalPosition();
+            _posBottom = _randomVerticalPosition(height);
             _posLeft = _randomHorizontalPosition();
           });
         }
@@ -294,12 +313,22 @@ class _RandomBubbleState extends State<RandomBubble> {
       _anim.addStatusListener((AnimationStatus status) {
         if (status == AnimationStatus.reverse) {
           setState(() {
-            _posBottom = _randomVerticalPosition();
+            _posBottom = _randomVerticalPosition(height);
             _posLeft = _randomHorizontalPosition();
           });
         }
       });
     }
+  }
+
+  updateBubbles(double waveHeight) {
+    _init(waveHeight);
+  }
+
+  @override
+  void initState() {
+    _init(widget.waveHeight);
+    super.initState();
   }
 
   @override
