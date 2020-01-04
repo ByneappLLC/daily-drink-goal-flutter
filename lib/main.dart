@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_config/flutter_config.dart';
 
 main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await FlutterConfig.loadEnvVariables();
 
   SystemChrome.setSystemUIOverlayStyle(

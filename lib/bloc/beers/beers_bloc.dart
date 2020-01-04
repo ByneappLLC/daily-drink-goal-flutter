@@ -23,10 +23,8 @@ class BeersBloc extends BaseBloc {
 
     streams.setGoal(goal);
     _getTodaysDrinks();
-    _beersBox.watch().listen((d) {
-      print(d);
-      _amountDrankToday += (d.value as Drink).amount;
-      streams.setDrank(_amountDrankToday);
+    _beersBox.watch().listen((_) {
+      _getTodaysDrinks();
     });
 
     streams.drinkingProgress.listen((d) {
@@ -37,9 +35,9 @@ class BeersBloc extends BaseBloc {
   _getTodaysDrinks() {
     if (_beersBox.length > 0) {
       final drinksToday = _beersBox.values.where((d) {
+        print(d.amount);
         return (d as Drink).date.day == _today.day;
       }).map((d) {
-        print(d);
         return (d as Drink).amount;
       }).reduce((d, d2) => d + d2);
 
@@ -47,7 +45,6 @@ class BeersBloc extends BaseBloc {
     } else {
       _amountDrankToday = 0;
     }
-    print(_amountDrankToday);
     streams.setDrank(_amountDrankToday);
   }
 
@@ -68,8 +65,8 @@ class BeersBloc extends BaseBloc {
     }
   }
 
-  deleteAll() {
-    print('Delete ass');
+  deleteAll() async {
+    await _beersBox.clear();
   }
 
   @override

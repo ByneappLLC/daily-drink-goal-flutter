@@ -20,6 +20,8 @@ class BeersStreams {
 
         if (progress > 1) {
           return 1;
+        } else if (progress == 0) {
+          return 0.01;
         } else {
           return progress;
         }
