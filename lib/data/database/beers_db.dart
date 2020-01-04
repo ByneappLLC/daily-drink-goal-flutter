@@ -18,7 +18,7 @@ class BeersDb {
 
   Future<Database> initDB() async {
     String databasePath = await getDatabasesPath();
-    String path = join(databasePath, "dailybudgetsmain.db");
+    String path = join(databasePath, "dailybeergoal.db");
 
     return openDatabase(
       path,
