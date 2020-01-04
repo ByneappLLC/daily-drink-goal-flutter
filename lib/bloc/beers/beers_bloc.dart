@@ -1,6 +1,6 @@
 import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
 import 'package:daily_beer_goal_fl/bloc/beers/streams.dart';
-import 'package:daily_beer_goal_fl/data/beers_db.dart';
+import 'package:daily_beer_goal_fl/data/database/beers_db.dart';
 import 'package:daily_beer_goal_fl/data/models/drink.dart';
 import 'package:hive/hive.dart';
 
