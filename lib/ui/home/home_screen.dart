@@ -12,7 +12,7 @@ final _container = kiwi.Container();
 BeersBloc _blocInstance;
 
 class HomeScreen extends StatefulWidget {
-  static const String routeName = "/";
+  static const String routeName = "home";
   static PageRoute newInstance() {
     if (_blocInstance == null) {
       _blocInstance = _container<BeersBloc>();
