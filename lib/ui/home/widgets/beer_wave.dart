@@ -227,6 +227,8 @@ class RandomBubble extends StatefulWidget {
   RandomBubbleState createState() => RandomBubbleState();
 }
 
+/// uses [Random] to generate a small circular shape (bubble) with
+/// a random position, size, opacity and animation.
 class RandomBubbleState extends State<RandomBubble> {
   final _random = Random();
 
