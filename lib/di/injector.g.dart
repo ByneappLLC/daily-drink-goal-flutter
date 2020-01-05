@@ -9,6 +9,8 @@ part of 'injector.dart';
 class _$Injector extends Injector {
   void _configureFactories() {
     final Container container = Container();
+    container.registerSingleton((c) => BeersDb());
+    container.registerFactory((c) => GetDrinks(c<BeersDb>()));
     container.registerFactory((c) => BeersBloc());
   }
 }
