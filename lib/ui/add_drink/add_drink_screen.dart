@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:daily_beer_goal_fl/data/models/beer_type.dart';
 import 'package:daily_beer_goal_fl/data/models/drink.dart';
 import 'package:daily_beer_goal_fl/ui/add_drink/flip_animator.dart';
 import 'package:daily_beer_goal_fl/ui/add_drink/widgets/beer_slider.dart';
@@ -40,7 +39,8 @@ class _AddDrinkScreenState extends State<AddDrinkScreen>
     final sideA = DrinkSelection(
       onMoreSelected: _animator.flip,
       onAmountSelected: (amount) {
-        Navigator.pop(context, Drink(amount, null, DateTime.now(), false));
+        Navigator.pop(
+            context, Drink(amount, DateTime.now().millisecondsSinceEpoch));
       },
     );
     final sideB = Transform(
@@ -52,8 +52,10 @@ class _AddDrinkScreenState extends State<AddDrinkScreen>
         onSavePressed: () {
           Navigator.pop(
               context,
-              Drink(_amountSelected, BeerType.ManualEntry, DateTime.now(),
-                  false));
+              Drink(
+                _amountSelected,
+                DateTime.now().millisecondsSinceEpoch,
+              ));
         },
       ),
     );

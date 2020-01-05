@@ -1,10 +1,13 @@
-import 'package:daily_beer_goal_fl/data/models/beer_type.dart';
-
 class Drink {
-  final int amount;
-  final BeerType type;
-  final DateTime date;
-  final bool synced;
+  static const String TABLE_NAME = "drinks";
 
-  Drink(this.amount, this.type, this.date, this.synced);
+  static const String COLUMN_ID = "drink_id";
+  static const String COLUMN_AMOUNT = "amount";
+  static const String COLUMN_DATE = "date";
+
+  int id;
+  final int amount;
+  final int date;
+
+  Drink(this.amount, this.date);
 }
