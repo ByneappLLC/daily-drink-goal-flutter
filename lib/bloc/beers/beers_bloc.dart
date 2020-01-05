@@ -15,12 +15,11 @@ class BeersBloc extends BaseBloc {
   }
 
   _init() async {
-    streams.setGoal(5000);
-    _getTodaysDrinks();
-
     streams.drinkingProgress.listen((d) {
       print("Drinking progress $d");
     });
+    streams.setGoal(5000);
+    _getTodaysDrinks();
   }
 
   _getTodaysDrinks() {
@@ -29,9 +28,7 @@ class BeersBloc extends BaseBloc {
 
     final lastWeek = today - 604800000;
 
-    print(lastWeek);
-
-    streams.setDrank(3300);
+    Future.delayed(Duration(milliseconds: 800), () => {streams.setDrank(2300)});
   }
 
   addDrink(Drink drink) {
