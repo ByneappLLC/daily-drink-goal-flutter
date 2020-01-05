@@ -9,8 +9,9 @@ class GetDrinks extends UseCase<int, List<Drink>> {
 
   GetDrinks(this._beersDb);
   @override
-  Future<Either<Failure, List<Drink>>> execute(int params) {
-    // TODO: implement execute
+  Future<Either<Failure, List<Drink>>> execute(int params) async {
+    final client = await _beersDb.db;
+
     return null;
   }
 }

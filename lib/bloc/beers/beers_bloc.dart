@@ -1,13 +1,15 @@
 import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
 import 'package:daily_beer_goal_fl/bloc/beers/streams.dart';
 import 'package:daily_beer_goal_fl/data/models/drink.dart';
+import 'package:daily_beer_goal_fl/usecase/get_drinks_usecase.dart';
 
 class BeersBloc extends BaseBloc {
   final BeersStreams streams;
+  final GetDrinks _getDrinks;
   DateTime _today;
   int _amountDrankToday;
 
-  BeersBloc() : streams = BeersStreams() {
+  BeersBloc(this._getDrinks) : streams = BeersStreams() {
     _today = DateTime.now();
     _init();
   }
@@ -22,12 +24,15 @@ class BeersBloc extends BaseBloc {
   }
 
   _getTodaysDrinks() {
-    streams.setDrank(_amountDrankToday);
+    final today = DateTime(_today.year, _today.month, _today.day, 23, 59)
+        .millisecondsSinceEpoch;
+
+    final lastWeek = today - 604800000;
+
+    print(lastWeek);
+
+    streams.setDrank(3300);
   }
-
-  _getWeeklyDrinks() {}
-
-  bool _isInThePastWeek(DateTime date) {}
 
   addDrink(Drink drink) {
     if (drink != null) {
