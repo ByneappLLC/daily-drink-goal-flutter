@@ -19,7 +19,7 @@ class BeersBloc extends BaseBloc {
     _getTodaysDrinks();
 
     streams.drinkingProgress.listen((d) {
-      print(d);
+      print("Drinking progress $d");
     });
   }
 

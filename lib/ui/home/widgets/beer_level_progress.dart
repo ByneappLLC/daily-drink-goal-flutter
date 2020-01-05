@@ -17,6 +17,7 @@ class _BeerLevelProgressState extends State<BeerLevelProgress> {
   void initState() {
     super.initState();
     _bloc = BlocProvider.of<BeersBloc>(context);
+    print('Initialized bloc on beer level widget');
     _bloc.streams.drinkingProgress.listen((p) {
       waveKey.currentState?.update(p);
     });
