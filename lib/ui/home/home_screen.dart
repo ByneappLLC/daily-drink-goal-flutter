@@ -12,15 +12,17 @@ final _container = kiwi.Container();
 BeersBloc _blocInstance;
 
 class HomeScreen extends StatefulWidget {
-  static Widget newInstance() {
+  static const String routeName = "/";
+  static PageRoute newInstance() {
     if (_blocInstance == null) {
       _blocInstance = _container<BeersBloc>();
     }
 
-    return BlocProvider(
-      bloc: _blocInstance,
-      child: HomeScreen(),
-    );
+    return MaterialPageRoute(
+        builder: (_) => BlocProvider(
+              bloc: _blocInstance,
+              child: HomeScreen(),
+            ));
   }
 
   @override
