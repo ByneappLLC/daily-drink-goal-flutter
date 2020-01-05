@@ -1,13 +1,9 @@
 import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
 import 'package:daily_beer_goal_fl/bloc/beers/streams.dart';
-import 'package:daily_beer_goal_fl/data/database/beers_db.dart';
 import 'package:daily_beer_goal_fl/data/models/drink.dart';
-import 'package:hive/hive.dart';
 
 class BeersBloc extends BaseBloc {
   final BeersStreams streams;
-  Box _beersBox;
-  Box _goalBox;
   DateTime _today;
   int _amountDrankToday;
 
@@ -17,15 +13,8 @@ class BeersBloc extends BaseBloc {
   }
 
   _init() async {
-    _beersBox = await BeersDb.getBeersBox();
-    _goalBox = await BeersDb.getGoalBox();
-    final goal = _goalBox.get('myGoal', defaultValue: 5000) as int;
-
-    streams.setGoal(goal);
+    streams.setGoal(5000);
     _getTodaysDrinks();
-    _beersBox.watch().listen((_) {
-      _getTodaysDrinks();
-    });
 
     streams.drinkingProgress.listen((d) {
       print(d);
@@ -33,41 +22,20 @@ class BeersBloc extends BaseBloc {
   }
 
   _getTodaysDrinks() {
-    if (_beersBox.length > 0) {
-      final drinksToday = _beersBox.values.where((d) {
-        print(d.amount);
-        return (d as Drink).date.day == _today.day;
-      }).map((d) {
-        return (d as Drink).amount;
-      }).reduce((d, d2) => d + d2);
-
-      _amountDrankToday = drinksToday;
-    } else {
-      _amountDrankToday = 0;
-    }
     streams.setDrank(_amountDrankToday);
   }
 
-  _getWeeklyDrinks() {
-    _beersBox.values.where((d) {
-      final month = (d as Drink).date.month;
-
-      return month == _today.month;
-    });
-  }
+  _getWeeklyDrinks() {}
 
   bool _isInThePastWeek(DateTime date) {}
 
   addDrink(Drink drink) {
     if (drink != null) {
       print(drink.amount);
-      _beersBox.add(drink);
     }
   }
 
-  deleteAll() async {
-    await _beersBox.clear();
-  }
+  deleteAll() async {}
 
   @override
   void dispose() {
