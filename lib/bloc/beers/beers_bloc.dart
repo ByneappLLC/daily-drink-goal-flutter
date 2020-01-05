@@ -25,9 +25,13 @@ class BeersBloc extends BaseBloc {
   _getTodaysDrinks() {
     final today = DateTime(_today.year, _today.month, _today.day, 23, 59)
         .millisecondsSinceEpoch;
-
-    final lastWeek = today - 604800000;
-
+    _getDrinks(
+        today,
+        (e) => e.fold((f) {
+              print(f);
+            }, (drinks) {
+              print(drinks);
+            }));
     Future.delayed(Duration(milliseconds: 800), () => {streams.setDrank(2300)});
   }
 
