@@ -1,5 +1,6 @@
 import 'package:daily_beer_goal_fl/bloc/beers/beers_bloc.dart';
 import 'package:daily_beer_goal_fl/data/database/beers_db.dart';
+import 'package:daily_beer_goal_fl/usecase/add_drink_usecase.dart';
 import 'package:daily_beer_goal_fl/usecase/get_drinks_usecase.dart';
 import 'package:kiwi/kiwi.dart';
 
@@ -12,6 +13,7 @@ abstract class Injector {
 
   @Register.singleton(BeersDb)
   @Register.factory(GetDrinks)
+  @Register.factory(AddDrink)
   @Register.factory(BeersBloc)
   void _configureFactories();
 }
