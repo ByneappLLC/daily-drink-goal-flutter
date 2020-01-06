@@ -19,7 +19,7 @@ class AddDrinkScreen extends StatefulWidget {
 class _AddDrinkScreenState extends State<AddDrinkScreen>
     with TickerProviderStateMixin {
   FlipAnimator _animator;
-  int _amountSelected;
+  double _amountSelected;
 
   @override
   void initState() {

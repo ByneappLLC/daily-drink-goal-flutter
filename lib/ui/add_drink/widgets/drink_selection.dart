@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DrinkSelection extends StatelessWidget {
   final Function onMoreSelected;
-  final Function(int) onAmountSelected;
+  final Function(double) onAmountSelected;
 
   const DrinkSelection(
       {Key key, @required this.onMoreSelected, @required this.onAmountSelected})

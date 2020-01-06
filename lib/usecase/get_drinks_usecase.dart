@@ -16,6 +16,12 @@ class GetDrinks extends UseCase<int, List<Drink>> {
     try {
       final drinks = await client.query(Drink.TABLE_NAME);
 
+      print(drinks);
+
+      final list = drinks.map((map) => Drink.fromMap(map)).toList();
+
+      print(list);
+
       return Right(drinks.map((d) => Drink.fromMap(d)).toList());
     } catch (e) {
       return Left(DatabaseError());

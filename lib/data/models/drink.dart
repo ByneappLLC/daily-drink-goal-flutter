@@ -6,7 +6,7 @@ class Drink {
   static const String COLUMN_DATE = "date";
 
   int id;
-  final int amount;
+  final double amount;
   final int date;
 
   Drink(this.amount, this.date);

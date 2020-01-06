@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class BeerSlider extends StatelessWidget {
   final Function onSavePressed;
   final Function onBackpressed;
-  final Function(int) onAmountSelected;
+  final Function(double) onAmountSelected;
 
   const BeerSlider(
       {Key key, this.onSavePressed, this.onAmountSelected, this.onBackpressed})
