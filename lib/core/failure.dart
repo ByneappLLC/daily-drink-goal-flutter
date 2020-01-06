@@ -4,3 +4,5 @@ abstract class Failure {
 }
 
 class DatabaseError extends Failure {}
+
+class InsertError extends Failure {}
