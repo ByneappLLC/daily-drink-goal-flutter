@@ -21,18 +21,25 @@ class _DayProgressState extends State<DayProgress>
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 700));
 
-    _animation = Tween(begin: 0.0, end: widget.data.progress).animate(
+    update(widget.data.progress);
+
+    super.initState();
+  }
+
+  void update(double progress) {
+    _animation = Tween<double>(begin: 0.0, end: widget.data.progress).animate(
         CurvedAnimation(
             parent: _controller,
             curve: Curves.elasticOut,
             reverseCurve: Curves.easeInOutQuad));
     _controller.forward();
-
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_animation.value != widget.data.progress) {
+      update(widget.data.progress);
+    }
     return LayoutBuilder(builder: (context, constraints) {
       return GestureDetector(
         onTap: () {
