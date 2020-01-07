@@ -37,7 +37,9 @@ class BeersBloc extends BaseBloc {
               drinks.forEach((d) {
                 if (DateTime.fromMillisecondsSinceEpoch(d.date).day ==
                     _today.day) {
-                  drankToday += d.amount;
+                  if (d.amount != null) {
+                    drankToday += d.amount;
+                  }
                 }
               });
               Future.delayed(Duration(milliseconds: 500),
