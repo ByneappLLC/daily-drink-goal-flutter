@@ -14,14 +14,9 @@ class GetDrinks extends UseCase<int, List<Drink>> {
     final client = await _beersDb.db;
 
     try {
-      final drinks = await client.query(Drink.TABLE_NAME);
-
-      print(drinks);
-
-      final list = drinks.map((map) => Drink.fromMap(map)).toList();
-
-      print(list);
-
+      final drinks = await client.query(Drink.TABLE_NAME,
+          where: "${Drink.COLUMN_DATE} BETWEEN ? AND ?",
+          whereArgs: [lastWeek, params]);
       return Right(drinks.map((d) => Drink.fromMap(d)).toList());
     } catch (e) {
       return Left(DatabaseError());
