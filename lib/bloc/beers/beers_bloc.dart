@@ -45,10 +45,10 @@ class BeersBloc extends BaseBloc {
         }
       }
     });
-    Future.delayed(
-        Duration(milliseconds: 500), () => streams.setDrank(drankToday));
-
-    streams.loadBeers(generateWeekData(drinks, _today, _goal));
+    Future.delayed(Duration(milliseconds: 500), () {
+      streams.setDrank(drankToday);
+      streams.loadBeers(generateWeekData(drinks, _today, _goal));
+    });
   }
 
   addDrink(Drink drink) {
@@ -64,7 +64,6 @@ class BeersBloc extends BaseBloc {
         _fetchDrinks();
       }
     });
-
   }
 
   @override
