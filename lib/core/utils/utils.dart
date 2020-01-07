@@ -24,25 +24,32 @@ List<WeekData> generateWeekData(List<Drink> drinks, DateTime today, int goal) {
           var drank = 0.0;
           drinks.forEach((d) {
             if (DateTime.fromMillisecondsSinceEpoch(d.date).day == today.day) {
-              drank += d.amount;
+              if (d.amount != null) {
+                drank += d.amount;
+              }
             }
           });
+          final weekDay = formatDate(today, ["D"]).substring(0, 1);
           return MapEntry(
-              index,
-              WeekData(
-                  formatDate(today, ["D"]), calculateProgress(goal, drank)));
+              index, WeekData(weekDay, calculateProgress(goal, drank)));
         } else {
           var drank = 0.0;
           final day = today.subtract(Duration(days: index));
           drinks.forEach((d) {
             if (DateTime.fromMillisecondsSinceEpoch(d.date).day == day.day) {
-              drank += d.amount;
+              if (d.amount != null) {
+                drank += d.amount;
+              }
             }
           });
-          return MapEntry(index,
-              WeekData(formatDate(day, ["D"]), calculateProgress(goal, drank)));
+
+          final weekDay = formatDate(day, ["D"]).substring(0, 1);
+          return MapEntry(
+              index, WeekData(weekDay, calculateProgress(goal, drank)));
         }
       })
       .values
+      .toList()
+      .reversed
       .toList();
 }
