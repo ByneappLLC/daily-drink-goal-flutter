@@ -1,39 +1,33 @@
+import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
+import 'package:daily_beer_goal_fl/bloc/beers/beers_bloc.dart';
+import 'package:daily_beer_goal_fl/data/models/week_data.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/day_progress.dart';
 import 'package:flutter/material.dart';
 
 class WeekChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _bloc = BlocProvider.of<BeersBloc>(context);
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-      height: 250,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          DayProgress(
-            progress: 0.1,
-          ),
-          DayProgress(
-            progress: 0.32,
-          ),
-          DayProgress(
-            progress: 0.12,
-          ),
-          DayProgress(
-            progress: 0.42,
-          ),
-          DayProgress(
-            progress: 0.2,
-          ),
-          DayProgress(
-            progress: 0.02,
-          ),
-          DayProgress(
-            progress: 0.87,
-          )
-        ],
-      ),
-    );
+        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+        height: 250,
+        child: StreamBuilder<List<WeekData>>(
+          stream: _bloc.streams.weeklyDrinks,
+          builder: (ctx, snapshot) {
+            if (snapshot.hasData) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: snapshot.data
+                    .map((d) => DayProgress(
+                          data: d,
+                        ))
+                    .toList(),
+              );
+            } else {
+              return Container();
+            }
+          },
+        ));
   }
 }

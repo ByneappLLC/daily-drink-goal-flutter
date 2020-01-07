@@ -1,10 +1,11 @@
+import 'package:daily_beer_goal_fl/data/models/week_data.dart';
 import 'package:daily_beer_goal_fl/ui/widgets/linear_painter.dart';
 import 'package:flutter/material.dart';
 
 class DayProgress extends StatefulWidget {
-  final double progress;
+  final WeekData data;
 
-  const DayProgress({Key key, this.progress}) : super(key: key);
+  const DayProgress({Key key, this.data}) : super(key: key);
 
   @override
   _DayProgressState createState() => _DayProgressState();
@@ -20,7 +21,7 @@ class _DayProgressState extends State<DayProgress>
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 700));
 
-    _animation = Tween(begin: 0.0, end: widget.progress).animate(
+    _animation = Tween(begin: 0.0, end: widget.data.progress).animate(
         CurvedAnimation(
             parent: _controller,
             curve: Curves.elasticOut,
@@ -61,7 +62,7 @@ class _DayProgressState extends State<DayProgress>
                 height: 15,
               ),
               Text(
-                'H',
+                widget.data.day,
                 style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,

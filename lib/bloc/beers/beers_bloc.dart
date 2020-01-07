@@ -1,6 +1,7 @@
 import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
 import 'package:daily_beer_goal_fl/bloc/beers/streams.dart';
 import 'package:daily_beer_goal_fl/core/failure.dart';
+import 'package:daily_beer_goal_fl/core/utils/utils.dart';
 import 'package:daily_beer_goal_fl/data/models/drink.dart';
 import 'package:daily_beer_goal_fl/usecase/add_drink_usecase.dart';
 import 'package:daily_beer_goal_fl/usecase/get_drinks_usecase.dart';
@@ -10,14 +11,16 @@ class BeersBloc extends BaseBloc {
   final GetDrinks _getDrinks;
   final AddDrink _addDrink;
   DateTime _today;
+  int _goal = 5000;
 
   BeersBloc(this._getDrinks, this._addDrink) : streams = BeersStreams() {
     _today = DateTime.now();
     _init();
   }
 
-  _init() async {
-    streams.setGoal(5000);
+  _init() {
+    streams.setGoal(_goal);
+
     _fetchDrinks();
   }
 
@@ -41,6 +44,8 @@ class BeersBloc extends BaseBloc {
     });
     Future.delayed(
         Duration(milliseconds: 500), () => streams.setDrank(drankToday));
+
+    streams.loadBeers(generateWeekData(drinks, _today, _goal));
   }
 
   addDrink(Drink drink) {

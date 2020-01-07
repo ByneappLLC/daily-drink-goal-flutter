@@ -1,11 +1,12 @@
-import 'package:daily_beer_goal_fl/data/models/drink.dart';
+import 'package:daily_beer_goal_fl/core/utils/utils.dart';
+import 'package:daily_beer_goal_fl/data/models/week_data.dart';
 import 'package:rxdart/rxdart.dart';
 
 class BeersStreams {
-  BehaviorSubject<List<Drink>> _weeklyBeerController =
-      BehaviorSubject<List<Drink>>();
-  loadBeers(List<Drink> beers) => _weeklyBeerController.sink.add(beers);
-  Stream<List<Drink>> get myBeers => _weeklyBeerController.stream;
+  BehaviorSubject<List<WeekData>> _weeklyController =
+      BehaviorSubject<List<WeekData>>();
+  loadBeers(List<WeekData> beers) => _weeklyController.sink.add(beers);
+  Stream<List<WeekData>> get weeklyDrinks => _weeklyController.stream;
 
   BehaviorSubject<int> _goalController = BehaviorSubject<int>();
   setGoal(int g) => _goalController.sink.add(g);
@@ -13,22 +14,11 @@ class BeersStreams {
   BehaviorSubject<double> _drankController = BehaviorSubject<double>();
   setDrank(double d) => _drankController.sink.add(d);
 
-  Observable<double> get drinkingProgress =>
-      Observable.combineLatest2(_goalController, _drankController,
-          (goal, drank) {
-        final progress = drank / goal;
-
-        if (progress > 1) {
-          return 1;
-        } else if (progress == 0) {
-          return 0.01;
-        } else {
-          return progress;
-        }
-      });
+  Observable<double> get drinkingProgress => Observable.combineLatest2(
+      _goalController, _drankController, calculateProgress);
 
   closeStreams() {
-    _weeklyBeerController.close();
+    _weeklyController.close();
     _goalController.close();
     _drankController.close();
   }
