@@ -8,10 +8,7 @@ class MainContent extends StatelessWidget {
   final Function onSettingsPressed;
   final Function onMenuPressed;
 
-  final Function onTrash;
-
-  const MainContent(
-      {Key key, this.onSettingsPressed, this.onMenuPressed, this.onTrash})
+  const MainContent({Key key, this.onSettingsPressed, this.onMenuPressed})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -40,13 +37,6 @@ class MainContent extends StatelessWidget {
             onPressed: onMenuPressed,
           ),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                FontAwesomeIcons.trashAlt,
-                color: Colors.black54,
-              ),
-              onPressed: onTrash,
-            ),
             IconButton(
               icon: Icon(
                 FontAwesomeIcons.cog,

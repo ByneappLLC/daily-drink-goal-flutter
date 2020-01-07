@@ -1,3 +1,5 @@
+import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
+import 'package:daily_beer_goal_fl/bloc/beers/beers_bloc.dart';
 import 'package:daily_beer_goal_fl/ui/home/home_animator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -36,6 +38,7 @@ class SettingsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final _bloc = BlocProvider.of<BeersBloc>(context);
     return AnimatedBuilder(
       animation: animator.settingsController,
       builder: (context, widget) {
@@ -73,12 +76,8 @@ class SettingsCard extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          Banner(
-                            location: BannerLocation.topStart,
-                            message: 'Comming Soon',
-                            child: _settingsSelection(
-                                'Account', () {}, FontAwesomeIcons.userAlt),
-                          ),
+                          _settingsSelection('Delete All', _bloc.deleteAll,
+                              FontAwesomeIcons.userAlt),
                           _settingsSelection(
                               'Set Goal', () {}, FontAwesomeIcons.trophy)
                         ],

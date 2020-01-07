@@ -31,7 +31,6 @@ class MainAnimatedContent extends StatelessWidget {
         body: MainContent(
           onMenuPressed: animator.openMenu,
           onSettingsPressed: animator.openSettings,
-          onTrash: _beerBloc.deleteAll,
         ),
         floatingActionButton: FloatingActionButton(
           heroTag: 'fab-to-add',

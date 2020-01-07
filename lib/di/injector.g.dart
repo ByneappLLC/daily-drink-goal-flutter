@@ -12,6 +12,8 @@ class _$Injector extends Injector {
     container.registerSingleton((c) => BeersDb());
     container.registerFactory((c) => GetDrinks(c<BeersDb>()));
     container.registerFactory((c) => AddDrink(c<BeersDb>()));
-    container.registerFactory((c) => BeersBloc(c<GetDrinks>(), c<AddDrink>()));
+    container.registerFactory((c) => DeleteDrinks(c<BeersDb>()));
+    container.registerFactory(
+        (c) => BeersBloc(c<GetDrinks>(), c<AddDrink>(), c<DeleteDrinks>()));
   }
 }

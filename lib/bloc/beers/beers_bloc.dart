@@ -4,16 +4,19 @@ import 'package:daily_beer_goal_fl/core/failure.dart';
 import 'package:daily_beer_goal_fl/core/utils/utils.dart';
 import 'package:daily_beer_goal_fl/data/models/drink.dart';
 import 'package:daily_beer_goal_fl/usecase/add_drink_usecase.dart';
+import 'package:daily_beer_goal_fl/usecase/delete_drinks_usecase.dart';
 import 'package:daily_beer_goal_fl/usecase/get_drinks_usecase.dart';
 
 class BeersBloc extends BaseBloc {
   final BeersStreams streams;
   final GetDrinks _getDrinks;
   final AddDrink _addDrink;
+  final DeleteDrinks _deleteDrinks;
   DateTime _today;
   int _goal = 5000;
 
-  BeersBloc(this._getDrinks, this._addDrink) : streams = BeersStreams() {
+  BeersBloc(this._getDrinks, this._addDrink, this._deleteDrinks)
+      : streams = BeersStreams() {
     _today = DateTime.now();
     _init();
   }
@@ -54,7 +57,15 @@ class BeersBloc extends BaseBloc {
     }
   }
 
-  deleteAll() async {}
+  deleteAll() async {
+    _deleteDrinks(null, (e) {
+      final option = e.toOption();
+      if (option.isSome()) {
+        _fetchDrinks();
+      }
+    });
+
+  }
 
   @override
   void dispose() {
