@@ -10,8 +10,8 @@ class BeersStreams {
   BehaviorSubject<int> _goalController = BehaviorSubject<int>();
   setGoal(int g) => _goalController.sink.add(g);
 
-  BehaviorSubject<int> _drankController = BehaviorSubject<int>();
-  setDrank(int d) => _drankController.sink.add(d);
+  BehaviorSubject<double> _drankController = BehaviorSubject<double>();
+  setDrank(double d) => _drankController.sink.add(d);
 
   Observable<double> get drinkingProgress =>
       Observable.combineLatest2(_goalController, _drankController,

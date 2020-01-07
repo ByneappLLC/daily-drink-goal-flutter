@@ -27,14 +27,22 @@ class BeersBloc extends BaseBloc {
   _getTodaysDrinks() {
     final today = DateTime(_today.year, _today.month, _today.day, 23, 59)
         .millisecondsSinceEpoch;
+
+    var drankToday = 0.0;
     _getDrinks(
         today,
         (e) => e.fold((f) {
               print(f);
             }, (drinks) {
-              print(drinks);
+              drinks.forEach((d) {
+                if (DateTime.fromMillisecondsSinceEpoch(d.date).day ==
+                    _today.day) {
+                  drankToday += d.amount;
+                }
+              });
+              Future.delayed(Duration(milliseconds: 500),
+                  () => streams.setDrank(drankToday));
             }));
-    Future.delayed(Duration(milliseconds: 800), () => {streams.setDrank(2300)});
   }
 
   addDrink(Drink drink) {
