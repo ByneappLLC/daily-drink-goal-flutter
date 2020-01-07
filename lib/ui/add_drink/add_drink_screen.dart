@@ -48,14 +48,18 @@ class _AddDrinkScreenState extends State<AddDrinkScreen>
       alignment: FractionalOffset.center,
       child: BeerSlider(
         onBackpressed: _animator.flip,
-        onAmountSelected: (amount) => _amountSelected = amount,
+        onAmountSelected: (amount) {
+          _amountSelected = amount;
+        },
         onSavePressed: () {
-          Navigator.pop(
-              context,
-              Drink(
-                _amountSelected,
-                DateTime.now().millisecondsSinceEpoch,
-              ));
+          if (_amountSelected != null) {
+            Navigator.pop(
+                context,
+                Drink(
+                  _amountSelected,
+                  DateTime.now().millisecondsSinceEpoch,
+                ));
+          }
         },
       ),
     );
