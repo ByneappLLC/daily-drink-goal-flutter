@@ -1,6 +1,6 @@
-import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
-import 'package:daily_beer_goal_fl/bloc/beers/beers_bloc.dart';
+import 'package:daily_beer_goal_fl/core/base_bloc.dart';
 import 'package:daily_beer_goal_fl/data/models/week_data.dart';
+import 'package:daily_beer_goal_fl/feature/beers/beers_bloc.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/day_progress.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
-import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
-import 'package:daily_beer_goal_fl/bloc/beers/beers_bloc.dart';
+import 'package:daily_beer_goal_fl/core/base_bloc.dart';
 import 'package:daily_beer_goal_fl/di/di_instance.dart';
+import 'package:daily_beer_goal_fl/feature/beers/beers_bloc.dart';
 import 'package:daily_beer_goal_fl/ui/home/home_animator.dart';
 import 'package:daily_beer_goal_fl/ui/home/settings/settings_card.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/drawer_menu.dart';
