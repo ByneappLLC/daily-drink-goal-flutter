@@ -1,8 +1,8 @@
-import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
-import 'package:daily_beer_goal_fl/bloc/beers/streams.dart';
+import 'package:daily_beer_goal_fl/core/base_bloc.dart';
 import 'package:daily_beer_goal_fl/core/failure.dart';
 import 'package:daily_beer_goal_fl/core/utils/utils.dart';
 import 'package:daily_beer_goal_fl/data/models/drink.dart';
+import 'package:daily_beer_goal_fl/feature/beers/streams.dart';
 import 'package:daily_beer_goal_fl/usecase/add_drink_usecase.dart';
 import 'package:daily_beer_goal_fl/usecase/delete_drinks_usecase.dart';
 import 'package:daily_beer_goal_fl/usecase/get_drinks_usecase.dart';
@@ -59,8 +59,7 @@ class BeersBloc extends BaseBloc {
 
   deleteAll() async {
     _deleteDrinks(null, (e) {
-      final option = e.toOption();
-      if (option.isSome()) {
+      if (e.toOption().isSome()) {
         _fetchDrinks();
       }
     });
