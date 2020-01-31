@@ -13,6 +13,7 @@ class MainContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      shrinkWrap: true,
       physics: BouncingScrollPhysics(),
       slivers: <Widget>[
         SliverAppBar(

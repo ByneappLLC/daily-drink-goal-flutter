@@ -1,13 +1,11 @@
 import 'package:daily_beer_goal_fl/bloc/base_bloc.dart';
 import 'package:daily_beer_goal_fl/bloc/beers/beers_bloc.dart';
+import 'package:daily_beer_goal_fl/di/di_instance.dart';
 import 'package:daily_beer_goal_fl/ui/home/home_animator.dart';
 import 'package:daily_beer_goal_fl/ui/home/settings/settings_card.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/drawer_menu.dart';
 import 'package:daily_beer_goal_fl/ui/home/widgets/main_animated_content.dart';
 import 'package:flutter/material.dart';
-import 'package:kiwi/kiwi.dart' as kiwi;
-
-final _container = kiwi.Container();
 
 BeersBloc _blocInstance;
 
@@ -15,7 +13,7 @@ class HomeScreen extends StatefulWidget {
   static const String routeName = "home";
   static PageRoute newInstance() {
     if (_blocInstance == null) {
-      _blocInstance = _container<BeersBloc>();
+      _blocInstance = sl<BeersBloc>();
     }
 
     return MaterialPageRoute(
